@@ -15,7 +15,7 @@ public class TestClient {
 				.request(MediaType.TEXT_PLAIN_TYPE)
 				.header("some-header", "true").get();
 
-		System.out.println(entity.getStatus());
+		System.out.println(entity.readEntity(String.class));
 
 	}
 
