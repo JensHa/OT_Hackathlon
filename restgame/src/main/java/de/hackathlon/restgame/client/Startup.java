@@ -12,8 +12,8 @@ public class Startup {
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
 		
 		ExecutorService pool = Executors.newCachedThreadPool();
-		final Future<Client> jerseyClient = pool.submit(new ClientInitCallable());
-		final TTTClient client = new TTTClient(jerseyClient);
+		final Future<Client> futureClient = pool.submit(new ClientInitCallable());
+		final TTTClient client = new TTTClient(futureClient);
 	
 		
 		pool.submit(new Runnable() {

@@ -12,7 +12,7 @@ public class TestClient {
 
 		Response entity = client.target("http://0.0.0.0:8080/")
 				.path("testClass/test").queryParam("greeting", "Hi World!")
-				.request(MediaType.TEXT_PLAIN_TYPE)
+				.request(MediaType.TEXT_PLAIN)
 				.header("some-header", "true").get();
 
 		System.out.println(entity.readEntity(String.class));

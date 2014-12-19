@@ -20,6 +20,8 @@ public class GUI_Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tf_Input;
+	private JLabel lb_Port;
+	private JTextField tf_Port;
 
 //	/**
 //	 * Launch the application.
@@ -41,16 +43,17 @@ public class GUI_Login extends JFrame {
 	 */
 	public GUI_Login(final TTTClient client) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 328, 137);
+		setBounds(100, 100, 497, 137);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		tf_Input = new JTextField();
-		tf_Input.setBounds(80, 53, 116, 22);
+		tf_Input.setBounds(80, 53, 151, 22);
 		contentPane.add(tf_Input);
 		tf_Input.setColumns(10);
+		tf_Input.setText("0.0.0.0");
 		
 		JLabel lb_Server = new JLabel("Server-IP");
 		lb_Server.setBounds(12, 56, 56, 16);
@@ -60,15 +63,31 @@ public class GUI_Login extends JFrame {
 		bt_Connect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				String ipAdressOfServer=tf_Input.getText();
+				int port=Integer.valueOf(tf_Port.getText());
 				try {
-					client.setTarget(ipAdressOfServer);
+					client.setTarget(ipAdressOfServer,port);
+					new GUI_Lobby(client).setVisible(true);
+					client.postMethod("PreGame/Login");
+					dispose();
+				//	System.out.println(client.getMethod("/testClass/test").readEntity(String.class));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		});
-		bt_Connect.setBounds(208, 52, 97, 25);
+		bt_Connect.setBounds(370, 52, 97, 25);
 		contentPane.add(bt_Connect);
+		
+		lb_Port = new JLabel("Port");
+		lb_Port.setBounds(275, 56, 31, 16);
+		contentPane.add(lb_Port);
+		
+		tf_Port = new JTextField();
+		tf_Port.setText("8080");
+		tf_Port.setBounds(310, 53, 48, 22);
+		contentPane.add(tf_Port);
+		tf_Port.setColumns(10);
 	}
+
 }
