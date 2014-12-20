@@ -206,10 +206,13 @@ public class GUI_Lobby extends JFrame {
 						try {
 							Thread.sleep(5000);
 							String resp=client.getMethod("Game/amIinARunningGame").readEntity(String.class);
-							if(resp.equals("yes"))
+							StringTokenizer st = new StringTokenizer(resp,";");
+							String yesOrNo=st.nextToken();
+							String boardID=st.nextToken();
+							if(yesOrNo.equals("yes"))
 							{
 								
-							new GUI_Board(client).setVisible(true);
+							new GUI_Board(client,boardID).setVisible(true);
 							dispose();
 							Thread.currentThread().destroy();
 							}

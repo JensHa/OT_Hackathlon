@@ -29,15 +29,7 @@ public class GameResource {
     	for(Entry<String, String> entry:StaticObjects.runningGames.entrySet()){
     		
     		if(entry.getKey().toString().equals(htr.getRemoteHost().toString())||entry.getValue().equals(htr.getRemoteHost().toString())){
-
-    			String idVar1=htr.getRemoteHost().toString()+entry.getKey().toString();
-    			String idVar2=entry.getKey().toString()+htr.getRemoteHost().toString();
-    			if(StaticObjects.boardsState.containsKey(idVar1)||StaticObjects.boardsState.containsKey(idVar2)){
-    				StaticObjects.runningGames.remove(entry.getKey());
-    			}else{
-    				StaticObjects.boardsState.put(idVar1, new GenericPair<String[], Boolean>(new String[]{"a"}, true));
-    				System.out.println("");
-    			}
+ 
     			return Response.ok("yes").build();
     		}
     	
@@ -54,11 +46,11 @@ public class GameResource {
     	for(Entry<String, String> entry:StaticObjects.runningGames.entrySet()){
     		
     		if(entry.getKey().toString().equals(htr.getRemoteHost().toString())||entry.getValue().equals(htr.getRemoteHost().toString())){
-    			return Response.ok("yes").build();
+    			return Response.ok("yes;"+entry.getKey()+entry.getValue()).build();
     		}
     	
     	}
-    	return Response.ok("no").build();
+    	return Response.ok("no;").build();
     }
     
     
