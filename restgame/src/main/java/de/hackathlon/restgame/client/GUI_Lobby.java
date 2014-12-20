@@ -211,6 +211,7 @@ public class GUI_Lobby extends JFrame {
 								
 							new GUI_Board(client).setVisible(true);
 							dispose();
+							Thread.currentThread().destroy();
 							}
 
 						} catch (InterruptedException e) {
