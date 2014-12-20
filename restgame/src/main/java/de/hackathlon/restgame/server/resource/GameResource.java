@@ -38,7 +38,7 @@ public class GameResource {
     				player="player2";
     			}
     			System.out.println(entry.getKey()+entry.getValue());
-    			StaticObjects.boardsState.put(boardID, new GenericPair<String[], Boolean>(new String[]{}, true));
+    			StaticObjects.boardsState.put(boardID, new GenericPair<String[], Boolean>(new String[]{"-","-","-","-","-","-","-","-","-",}, true));
     			return Response.ok("yes;"+entry.getKey()+entry.getValue()+";"+player).build();
     		}
     	
@@ -47,21 +47,39 @@ public class GameResource {
     }
     
 	
-    @GET
-    @Path("/getStateOfBoard")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response getStateOfBoard(@Context HttpServletRequest htr) {
-    	
-    	for(Entry<String, String> entry:StaticObjects.runningGames.entrySet()){
-    		
-    		if(entry.getKey().toString().equals(htr.getRemoteHost().toString())||entry.getValue().equals(htr.getRemoteHost().toString())){
-    			return Response.ok("yes").build();
-    		}
-    	
-    	}
-    	return Response.ok("no").build();
-    }
+//    @GET
+//    @Path("/getStateOfBoard")
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public Response getStateOfBoard(@Context HttpServletRequest htr) {
+//    	
+//    	for(Entry<String, String> entry:StaticObjects.runningGames.entrySet()){
+//    		
+//    		if(entry.getKey().toString().equals(htr.getRemoteHost().toString())||entry.getValue().equals(htr.getRemoteHost().toString())){
+//    			return Response.ok("yes").build();
+//    		}
+//    	
+//    	}
+//    	return Response.ok("no").build();
+//    }
     
+  @GET
+  @Path("/getStateOfBoard")
+  @Produces(MediaType.TEXT_PLAIN)
+  public Response getStateOfBoard(@Context HttpServletRequest htr) {
+  	
+	  
+	  for(Entry<String, GenericPair<String[], Boolean>> entry:StaticObjects.boardsState.entrySet()){
+		  if(entry.getKey().contains(htr.getRemoteHost().toString())){
+			  String command="";
+			  for(int i=0; i<entry.getValue().getFirstValue().length;i++){
+				  command+=entry.getValue().getFirstValue()[i]+";";
+			  }
+			  command+=entry.getValue().getSecondValue().toString();
+			  return Response.ok(command).build();
+		  }
+	  }
+  	return Response.ok("no").build();
+  }
     
     
     
