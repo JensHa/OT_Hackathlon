@@ -86,7 +86,6 @@ public class GameResource {
 	@Path("/postAnEntry")
 	public Response postAnEntry(@Context HttpServletRequest htr,String input){
 		
-		
 		StringTokenizer st = new StringTokenizer(input,";");
 		
 		int noOfBt=Integer.valueOf(st.nextToken());
@@ -94,11 +93,16 @@ public class GameResource {
 		
 		  for(Entry<String, GenericPair<String[], Boolean>> entry:StaticObjects.boardsState.entrySet()){
 			  if(entry.getKey().contains(htr.getRemoteHost().toString())){
+					System.out.println("its the turn of" + entry.getValue().getSecondValue().toString());
+
 				  entry.getValue().getFirstValue()[noOfBt]=value;
 			  }
 			  
 			  if(value.equals("X")){
 				  entry.getValue().setSecondValue(false);
+			  }else{
+				  entry.getValue().setSecondValue(true);
+
 			  }
 		  }
 		  return Response.ok().build();
