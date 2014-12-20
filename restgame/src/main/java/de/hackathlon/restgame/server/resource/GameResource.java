@@ -81,6 +81,29 @@ public class GameResource {
   	return Response.ok("no").build();
   }
     
-    
+	@POST
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Path("/postAnEntry")
+	public Response postAnEntry(@Context HttpServletRequest htr,String input){
+		
+		
+		StringTokenizer st = new StringTokenizer(input,";");
+		
+		int noOfBt=Integer.valueOf(st.nextToken());
+		String value=st.nextToken();
+		
+		  for(Entry<String, GenericPair<String[], Boolean>> entry:StaticObjects.boardsState.entrySet()){
+			  if(entry.getKey().contains(htr.getRemoteHost().toString())){
+				  entry.getValue().getFirstValue()[noOfBt]=value;
+			  }
+			  
+			  if(value.equals("X")){
+				  entry.getValue().setSecondValue(false);
+			  }
+		  }
+		  return Response.ok().build();
+
+	
+	}
     
 }
