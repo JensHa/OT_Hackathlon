@@ -24,7 +24,32 @@ public class GameResource {
     @GET
     @Path("/amIinARunningGame")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getOpenRequests(@Context HttpServletRequest htr) {
+    public Response amIinARunningGame(@Context HttpServletRequest htr) {
+    	
+    	for(Entry<String, String> entry:StaticObjects.runningGames.entrySet()){
+    		
+    		if(entry.getKey().toString().equals(htr.getRemoteHost().toString())||entry.getValue().equals(htr.getRemoteHost().toString())){
+
+    			String idVar1=htr.getRemoteHost().toString()+entry.getKey().toString();
+    			String idVar2=entry.getKey().toString()+htr.getRemoteHost().toString();
+    			if(StaticObjects.boardsState.containsKey(idVar1)||StaticObjects.boardsState.containsKey(idVar2)){
+    				StaticObjects.runningGames.remove(entry.getKey());
+    			}else{
+    				StaticObjects.boardsState.put(idVar1, new GenericPair<String[], Boolean>(new String[]{"a"}, true));
+    				System.out.println("");
+    			}
+    			return Response.ok("yes").build();
+    		}
+    	
+    	}
+    	return Response.ok("no").build();
+    }
+    
+	
+    @GET
+    @Path("/getStateOfBoard")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getStateOfBoard(@Context HttpServletRequest htr) {
     	
     	for(Entry<String, String> entry:StaticObjects.runningGames.entrySet()){
     		
@@ -36,76 +61,6 @@ public class GameResource {
     	return Response.ok("no").build();
     }
     
-	@POST
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Path("/inviteUser")
-	public Response inviteUser(@Context HttpServletRequest htr,String opponent){
-		
-		if(StaticObjects.gameInvitations.containsKey(htr.getRemoteHost().toString())){
-			return Response.status(400).entity("only one open request is allowed!").build();
-		}
-		StaticObjects.gameInvitations.put(htr.getRemoteHost().toString(),new GenericPair<String, Boolean>(opponent, false));
-		
-		
-		System.out.println("Server: "+htr.getRemoteHost().toString()+" invites "+ opponent + " to play!");
-		return Response.ok().build();
-	}
-    
-	@POST
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Path("/Login")
-	public Response loginForUser(@Context HttpServletRequest htr,String test){
-		
-		
-		StaticObjects.users.put(htr.getRemoteHost().toString(),new GenericPair<Long, Boolean>(System.currentTimeMillis(), false));
-		
-		
-		System.out.println("Server: "+htr.getRemoteHost().toString()+" logged in!");
-		return Response.ok().build();
-	}
-	
-	
-	@POST
-	@Consumes(MediaType.TEXT_PLAIN)
-	@Path("/answerToRequest")
-	public Response answerToRequest(@Context HttpServletRequest htr,String opponentAndAnswer){
-		StringTokenizer st = new StringTokenizer(opponentAndAnswer,";");
-		String answer=st.nextToken();
-		String opponent=st.nextToken();
-		
-		//opponent hat eingeladen
-		System.out.println(htr.getRemoteHost().toString()+" "+ answer +" with " + opponent);
-		
-		if(answer.equals("no")){
-			StaticObjects.gameInvitations.remove(opponent);
-			StaticObjects.responsesToInvitations.put(opponent, "no");
-			System.out.println("Server: "+htr.getRemoteHost().toString() +"declined a game with " + opponent);
-		}else if(answer.equals("yes")){
-			StaticObjects.gameInvitations.remove(opponent);
-			StaticObjects.runningGames.put(opponent, htr.getRemoteHost().toString());
-			StaticObjects.responsesToInvitations.put(opponent, "yes");
-			System.out.println("Server: "+htr.getRemoteHost().toString() +"accepted a game with " + opponent);
-		}
-		
-		return Response.ok().build();
-	}
-	
-    @GET
-    @Path("/getAnswersToRequest")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response getAnswersToRequest(@Context HttpServletRequest htr) {
-    
-    	for(Entry<String, String> entry:StaticObjects.responsesToInvitations.entrySet()){
-    		if(entry.getKey().equals(htr.getRemoteHost().toString())){
-    			Response returnValue=Response.ok(entry.getValue()).build();
-    			StaticObjects.responsesToInvitations.remove(entry.getKey());
-    			return returnValue;
-    		}
-    	}
-
-    	
-    	return Response.ok().build();
-    }
     
     
     
