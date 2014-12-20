@@ -204,12 +204,13 @@ public class GUI_Board extends JFrame {
 						content[i]=st.nextToken();
 					}
 					Boolean turn=new Boolean(st.nextToken());
-					
-					if(player.equals("player1")&&turn==true){
-						itsmyTurn=true;
-					}else{
-						itsmyTurn=false;
-					}
+				
+					itsmyTurn=turn;
+//					if(turn==true){
+//						itsmyTurn=true;
+//					}else{
+//						itsmyTurn=false;
+//					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -226,13 +227,22 @@ public class GUI_Board extends JFrame {
 						
 						for(int i=0;i<9;i++){
 							buttonList.get(i).setText(content[i]);
-							if(player.equals("player1"))
-							if(itsmyTurn){
-								buttonList.get(i).setEnabled(true);
+							if(player.equals("player1")){
+								if(itsmyTurn){
+											buttonList.get(i).setEnabled(true);
 
+										}else{
+											buttonList.get(i).setEnabled(false);
+										}
 							}else{
-								buttonList.get(i).setEnabled(false);
+								if(itsmyTurn){
+											buttonList.get(i).setEnabled(false);
+
+										}else{
+											buttonList.get(i).setEnabled(true);
+										}
 							}
+
 						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();
