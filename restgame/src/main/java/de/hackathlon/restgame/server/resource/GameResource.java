@@ -18,23 +18,22 @@ import de.hackathlon.restgame.server.GenericPair;
 import de.hackathlon.restgame.server.Pair;
 import de.hackathlon.restgame.server.StaticObjects;
 
-@Path("/PreGame")
-public class PreGameResource {
+@Path("/Game")
+public class GameResource {
  
     @GET
-    @Path("/openRequests")
+    @Path("/amIinARunningGame")
     @Produces(MediaType.TEXT_PLAIN)
     public Response getOpenRequests(@Context HttpServletRequest htr) {
     	
-    	for(Entry<String, GenericPair<String, Boolean>> entry:StaticObjects.gameInvitations.entrySet()){
-    		if(entry.getValue().getFirstValue().equals(htr.getRemoteHost().toString())&&entry.getValue().getSecondValue()==false){
-    			entry.setValue(new GenericPair<String, Boolean>(entry.getValue().getFirstValue(), true));
-    			return Response.ok(entry.getKey().toString()).build();
+    	for(Entry<String, String> entry:StaticObjects.runningGames.entrySet()){
+    		
+    		if(entry.getKey().toString().equals(htr.getRemoteHost().toString())||entry.getValue().equals(htr.getRemoteHost().toString())){
+    			return Response.ok("yes").build();
     		}
-    	}
-
     	
-    	return Response.ok().build();
+    	}
+    	return Response.ok("no").build();
     }
     
 	@POST

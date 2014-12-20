@@ -199,6 +199,29 @@ public class GUI_Lobby extends JFrame {
 		});
 		
 		
+		Startup.pool.submit(new Runnable() {
+			
+			public void run() {
+				while(true){
+						try {
+							Thread.sleep(5000);
+							String resp=client.getMethod("Game/amIinARunningGame").readEntity(String.class);
+							if(resp.equals("yes"))
+							{
+								JOptionPane.showMessageDialog(new JFrame(),
+									    "this should be a board",
+									    "this should be a board",
+									    JOptionPane.ERROR_MESSAGE);
+							}
+
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+				}
+			}
+		});
 		JButton bt_invite = new JButton("Invite");
 		bt_invite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
