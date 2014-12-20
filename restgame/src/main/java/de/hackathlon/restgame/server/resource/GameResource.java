@@ -30,11 +30,12 @@ public class GameResource {
     		
     		if(entry.getKey().toString().equals(htr.getRemoteHost().toString())||entry.getValue().equals(htr.getRemoteHost().toString())){
  
-    			return Response.ok("yes").build();
+    			System.out.println(entry.getKey()+entry.getValue());
+    			return Response.ok("yes;"+entry.getKey()+entry.getValue()).build();
     		}
     	
     	}
-    	return Response.ok("no").build();
+    	return Response.ok("no;no").build();
     }
     
 	
