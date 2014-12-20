@@ -209,6 +209,7 @@ public class GUI_Lobby extends JFrame {
 							StringTokenizer st = new StringTokenizer(resp,";");
 							String yesOrNo=st.nextToken();
 							String boardID=st.nextToken();
+							System.out.println("###"+yesOrNo+boardID+"###");
 							if(yesOrNo.equals("yes"))
 							{
 								
