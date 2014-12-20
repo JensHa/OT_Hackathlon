@@ -194,11 +194,9 @@ public class GUI_Board extends JFrame {
 			public void run() {
 				while(true){
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(1000);
 					String resp = client.getMethod("Game/getStateOfBoard").readEntity(String.class);
-					
-				//	System.out.println(resp);
-					
+										
 					StringTokenizer st = new StringTokenizer(resp,";");
 					for(int i=0;i<9;i++){
 						content[i]=st.nextToken();
@@ -206,11 +204,7 @@ public class GUI_Board extends JFrame {
 					Boolean turn=new Boolean(st.nextToken());
 				
 					itsmyTurn=turn;
-//					if(turn==true){
-//						itsmyTurn=true;
-//					}else{
-//						itsmyTurn=false;
-//					}
+
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -229,7 +223,10 @@ public class GUI_Board extends JFrame {
 							buttonList.get(i).setText(content[i]);
 							if(player.equals("player1")){
 								if(itsmyTurn){
-											buttonList.get(i).setEnabled(true);
+									
+											if(buttonList.get(i).getText().equals("-")){
+												buttonList.get(i).setEnabled(true);
+											}
 
 										}else{
 											buttonList.get(i).setEnabled(false);
@@ -239,7 +236,9 @@ public class GUI_Board extends JFrame {
 											buttonList.get(i).setEnabled(false);
 
 										}else{
+											if(buttonList.get(i).getText().equals("-")){
 											buttonList.get(i).setEnabled(true);
+											}
 										}
 							}
 
