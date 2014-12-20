@@ -1,8 +1,5 @@
 package de.hackathlon.restgame.client;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -12,8 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 import java.awt.Color;
 
 import javax.swing.JButton;
@@ -23,10 +18,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 
 public class GUI_Lobby extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//private JTable table;
 	private JPanel contentPane;
 	private JTable table_1;

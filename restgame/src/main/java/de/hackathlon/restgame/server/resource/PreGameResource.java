@@ -1,6 +1,5 @@
 package de.hackathlon.restgame.server.resource;
 
-import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
@@ -15,12 +14,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.hackathlon.restgame.server.GenericPair;
-import de.hackathlon.restgame.server.Pair;
 import de.hackathlon.restgame.server.StaticObjects;
 
 @Path("/PreGame")
 public class PreGameResource {
  
+	/**
+	 * This method is used if a user wants to know if there are any game-requests on the server for him/her
+	 * @param htr
+	 * @return
+	 */
     @GET
     @Path("/openRequests")
     @Produces(MediaType.TEXT_PLAIN)
@@ -37,6 +40,12 @@ public class PreGameResource {
     	return Response.ok().build();
     }
     
+    /**
+     * This method is used if a user wants to invite another user to a match.
+     * @param htr
+     * @param opponent
+     * @return
+     */
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Path("/inviteUser")
@@ -52,6 +61,12 @@ public class PreGameResource {
 		return Response.ok().build();
 	}
     
+	/**
+	 * This method is used when a user logs in the first time. From this moment on the server knows the user and tracks the activity from him/her.
+	 * @param htr
+	 * @param test
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Path("/Login")
@@ -65,7 +80,12 @@ public class PreGameResource {
 		return Response.ok().build();
 	}
 	
-	
+	/**
+	 * This method is used to answer to a recent request which was sent to this user.
+	 * @param htr
+	 * @param opponentAndAnswer
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Path("/answerToRequest")
@@ -90,7 +110,12 @@ public class PreGameResource {
 		
 		return Response.ok().build();
 	}
-	
+	/**
+	 * This method is called when a users wants to know if there is a response to the game-request which was sent.
+	 * This could be a yes or a no
+	 * @param htr
+	 * @return
+	 */
     @GET
     @Path("/getAnswersToRequest")
     @Produces(MediaType.TEXT_PLAIN)

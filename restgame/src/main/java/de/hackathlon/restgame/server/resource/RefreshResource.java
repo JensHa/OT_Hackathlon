@@ -1,10 +1,8 @@
 package de.hackathlon.restgame.server.resource;
 
-import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -15,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.hackathlon.restgame.server.GenericPair;
-import de.hackathlon.restgame.server.Pair;
 import de.hackathlon.restgame.server.StaticObjects;
 
 @Path("/Refresh")

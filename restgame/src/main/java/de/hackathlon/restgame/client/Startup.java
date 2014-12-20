@@ -1,15 +1,11 @@
 package de.hackathlon.restgame.client;
 
-import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import javax.ws.rs.client.Client;
-
-import de.hackathlon.restgame.server.Pair;
-import de.hackathlon.restgame.server.StaticObjects;
 
 public class Startup {
 	static ExecutorService pool;
