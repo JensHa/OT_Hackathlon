@@ -208,10 +208,9 @@ public class GUI_Lobby extends JFrame {
 							String resp=client.getMethod("Game/amIinARunningGame").readEntity(String.class);
 							if(resp.equals("yes"))
 							{
-								JOptionPane.showMessageDialog(new JFrame(),
-									    "this should be a board",
-									    "this should be a board",
-									    JOptionPane.ERROR_MESSAGE);
+								
+							new GUI_Board(client).setVisible(true);
+							dispose();
 							}
 
 						} catch (InterruptedException e) {
