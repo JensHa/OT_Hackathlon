@@ -17,17 +17,26 @@ public class TTTClient {
 	Client client;
 	Future<Client> futureClient;
 	WebTarget server;
+	volatile boolean ready;
 	
 	public TTTClient(Future<Client> futureClient){
 		this.futureClient=futureClient;
+		ready=false;
 	}
 	
 	public Response getMethod(String path){
 		return server.path(path).request(MediaType.TEXT_PLAIN).get();
 	}
 
-	public Response postMethod(String path){
-		return server.path(path).request(MediaType.TEXT_PLAIN).post(Entity.entity("A string entity to be POSTed", MediaType.TEXT_PLAIN));
+	public Response postMethod(String path, String value){
+		System.out.println(path + " - "+value);
+		Response resp = null;
+		try{
+			resp=server.path(path).request(MediaType.TEXT_PLAIN).post(Entity.entity(value, MediaType.TEXT_PLAIN));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return resp;
 	}
 	public void setTarget(String ipAdressOfServer, int port) throws InterruptedException, ExecutionException {
 		client=futureClient.get();
@@ -37,6 +46,7 @@ public class TTTClient {
 		URI uri = builder.build();
 		
 		server=client.target(uri);
+		ready=true;
 //		WebTarget target = client.target(uri).path("testClass/test");
 //		Response resp=target.request(MediaType.TEXT_PLAIN_TYPE).get();
 //		System.out.println(resp.readEntity(String.class));

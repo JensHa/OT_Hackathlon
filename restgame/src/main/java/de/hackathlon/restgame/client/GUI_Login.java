@@ -66,8 +66,8 @@ public class GUI_Login extends JFrame {
 				int port=Integer.valueOf(tf_Port.getText());
 				try {
 					client.setTarget(ipAdressOfServer,port);
+					client.postMethod("PreGame/Login",null);
 					new GUI_Lobby(client).setVisible(true);
-					client.postMethod("PreGame/Login");
 					dispose();
 				//	System.out.println(client.getMethod("/testClass/test").readEntity(String.class));
 				} catch (Exception e) {
