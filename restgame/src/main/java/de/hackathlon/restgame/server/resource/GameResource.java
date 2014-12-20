@@ -30,8 +30,16 @@ public class GameResource {
     		
     		if(entry.getKey().toString().equals(htr.getRemoteHost().toString())||entry.getValue().equals(htr.getRemoteHost().toString())){
  
+    			String player="";
+    			String boardID=entry.getKey()+entry.getValue();
+    			if(boardID.startsWith(htr.getRemoteHost().toString())){
+    				player="player1";
+    			}else{
+    				player="player2";
+    			}
     			System.out.println(entry.getKey()+entry.getValue());
-    			return Response.ok("yes;"+entry.getKey()+entry.getValue()).build();
+    			StaticObjects.boardsState.put(boardID, new GenericPair<String[], Boolean>(new String[]{}, true));
+    			return Response.ok("yes;"+entry.getKey()+entry.getValue()+";"+player).build();
     		}
     	
     	}

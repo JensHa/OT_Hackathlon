@@ -59,6 +59,7 @@ public class TTTClient {
 //		Configuration a = client.getConfiguration();
 //		System.out.println("im here and my target is" + client.getConfiguration());
 	}
+
 	
 
 }

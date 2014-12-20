@@ -33,7 +33,8 @@ public class GUI_Board extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUI_Board(TTTClient client) {
+	public GUI_Board(TTTClient client,String boardID , String player) {
+		System.out.println("Borad: " + boardID + " Player: "+ player);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 545, 382);
 		bt_7 = new JPanel();
